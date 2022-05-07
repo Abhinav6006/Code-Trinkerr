@@ -1,0 +1,153 @@
+1) Newbie Programmer
+You have recently joined the college where you were introduced to programming in general. In one of your Strings classes, you learned that string addition is also possible in programming.
+
+You tried to do similar addition in numbers (concatenation) and noticed that new numbers formed can be really big.
+
+You got interested in the task and decided to calculate the sum of all those numbers formed by the concatenation and then return the sum in an Optimal way.
+
+String addition of two strings is : "a" + "b" = "ab".
+
+Note: a + b and b + a are treated differently in the transformation. Transformation is concatenation of 2 values.
+
+
+Constraints: length of the array <= 105
+
+Input You are given an array of numbers.
+
+Sample Input 1
+
+Input: [10, 11]
+
+Output: 4242
+
+Explanation: 
+T1: 10 + 10 = 1010 (Index 0, Index 0)
+T2: 11 + 10 = 1110 (Index 1, Index 0)
+T3: 10 + 11 = 1011 (Index 0, Index 1)
+T4: 11 + 11 = 1111 (Index 1, Index 1)
+Sample Input 2
+
+Input: nums = [8, 10, 12]
+
+Output: 6390
+
+Explanation: 
+Numbers formed are: 88, 810, 812, 108, 1010, 1012, 128, 1210, 1212
+
+
+Code:- 
+
+Class Solution{
+
+public static void main(String[] args){
+	 Scanner sc=new Scanner(System.in);
+	 int n=sc.nextInt();
+	 int[] arr=new int[n];  
+	 for(int i=0;i<n;i++){
+	    arr[i]=sc.nextInt();
+	 }
+
+	int sum =calculateSum(arr);
+	System.out.println(sum);
+}
+
+
+private static int calculateSum(int[] arr){
+
+ 	String[] strArr=new String[arr.length];
+     for(int i=0;i<arr.length;i++){     
+     	strArr[i]=String.valueOf(arr[i]);       
+     }
+
+    int i=0,j=strArr.length-1,finalSum=0;
+    List<String> sumList=new ArrayList<>();
+    sumList.add(strArr[i]+strArr[i]);         
+    sumList.add(strArr[j]+strArr[j]);          
+	
+	while(i<=j){                    
+	  sumList.add(strArr[i]+strArr[j]);
+	  sumList.add(strArr[j]+strArr[i]);        
+	  i++;
+	  j--;
+	}
+    
+    for(String sum:sumList){
+      finalSum+=Integer.parseInt(sum);
+    }
+
+	return finalSum;
+}
+
+}
+
+
+
+
+2) Mirror Image
+Given a string, determine its mirror image. A mirror image of a string is a string in which all the alphabets are reversed. All other characters are untouched.
+
+Input: You are given a string.
+
+Output: Return the mirror image of the string
+
+Sample Input 1
+
+Input: "ab-cd"   
+
+Output: "dc-ba"
+Sample Input 2
+
+Input: "a-bC-dEf-ghIj"
+
+Output: "j-Ih-gfE-dCba"
+NOTE:
+
+input consists of characters with ASCII values in the range [33, 122].
+input does not contain '\"' or '\\'.
+
+Code:-
+
+Class Solution{
+
+public static void main(String[] args){
+	 Scanner sc=new Scanner(System.in);
+	 int str=sc.nextLine(); 
+	 String finalStr =mirrorString(str);
+	 System.out.println(finalStr);
+}
+
+private static String mirrorString(String str){
+   String s=" ";
+   Stack<String> st=new Stack<>();
+   Queue<String> nonAlphabetChar= new LinkedList<>();
+
+   for(int i=0;i<str.length();i++){
+      if(!(str.charAt(i)>='a' && str.charAt(i)<='z') || (str.charAt(i)>='A' && str.charAt(i)<='Z')){
+           Collections.reverse(s);
+           st.push(s);
+           q.add(str.charAt(i));
+           s="";
+      }else{
+        s+=str.charAt(i);
+      }
+   }
+
+   String finalStr="";
+   while(!st.isEmpty() && !q.isEmpty()){
+      finalStr+=st.peek();
+      st.pop();
+      finalStr+=q.poll(); 
+   }	
+   
+   finalStr+=st.peek();
+   st.pop();
+   return finalStr;
+
+}
+
+}
+
+
+
+
+
